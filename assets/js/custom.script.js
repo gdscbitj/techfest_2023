@@ -1,927 +1,918 @@
-/assets/ /
-  assets(
-    //assets//assets//assets//assets//assets//assets/
+(function ($) {
+  "use strict";
 
-    function ($) {
-      "use strict";
+  $(document).ready(function () {
+    /*=========================================================================
 
-      $(document).ready(function () {
-        /*=========================================================================
+       ===  MENU SCROLL FIXED
 
-         ===  MENU SCROLL FIXED
+       ========================================================================== */
 
-         ========================================================================== */
+    var s = $(".tech-header-position");
 
-        var s = $(".tech-header-position");
+    var pos = s.position();
 
-        var pos = s.position();
+    $(window).on("scroll", function () {
+      var windowpos = $(window).scrollTop();
 
-        $(window).on("scroll", function () {
-          var windowpos = $(window).scrollTop();
+      if (windowpos >= pos.top) {
+        s.addClass("menu-onscroll");
+      } else {
+        s.removeClass("menu-onscroll");
+      }
+    });
 
-          if (windowpos >= pos.top) {
-            s.addClass("menu-onscroll");
-          } else {
-            s.removeClass("menu-onscroll");
-          }
-        });
+    /*=========================================================================
 
-        /*=========================================================================
+       ===  MENU SCROLL FIXED END
 
-         ===  MENU SCROLL FIXED END
+       ========================================================================== */
 
-         ========================================================================== */
+    /*=========================================================================
 
-        /*=========================================================================
+       ===  Circular CountDown
 
-         ===  Circular CountDown
+       ========================================================================== */
 
-         ========================================================================== */
+    if ($("#circular-countdown").length) {
+      $("#circular-countdown").TimeCircles({
+        animation: "smooth",
 
-        if ($("#circular-countdown").length) {
-          $("#circular-countdown").TimeCircles({
-            animation: "smooth",
+        bg_width: 1.0,
 
-            bg_width: 1.0,
+        fg_width: 0.1,
 
-            fg_width: 0.1,
+        circle_bg_color: "#ddd",
 
-            circle_bg_color: "#ddd",
+        time: {
+          Days: {
+            text: "Days",
 
-            time: {
-              Days: {
-                text: "Days",
+            color: "#ec398b",
 
-                color: "#ec398b",
-
-                show: true,
-              },
-
-              Hours: {
-                text: "Hours",
-
-                color: "#fac400",
-
-                show: true,
-              },
-
-              Minutes: {
-                text: "Minutes",
-
-                color: "#00acee",
-
-                show: true,
-              },
-
-              Seconds: {
-                text: "Seconds",
-
-                color: "#483fa1",
-
-                show: true,
-              },
-            },
-          });
-        }
-
-        /*=========================================================================
-
-         ===  Circular CountDown End
-
-         ========================================================================== */
-
-        /*=========================================================================
-
-         ===  // SITE PATH
-
-         ========================================================================== */
-
-        var lgx_path = window.location.protocol + "//" + window.location.host;
-
-        var pathArray = window.location.pathname.split("/");
-
-        for (var i = 1; i < pathArray.length - 1; i++) {
-          lgx_path += "/";
-
-          lgx_path += pathArray[i];
-        }
-
-        /*=========================================================================
-
-         ===  // SITE PATH END
-
-         ========================================================================== */
-
-        /*=========================================================================
-
-         ===  COUNTER START
-
-         ========================================================================== */
-
-        var lgxCounter = $(".tech-counter");
-
-        if (lgxCounter.length) {
-          lgxCounter.counterUp({
-            delay: 10,
-
-            time: 5000,
-          });
-        }
-
-        /*=========================================================================
-
-         ===  COUNTER END
-
-         ========================================================================== */
-
-        /*=========================================================================
-
-         ===  Modal Video
-
-         ========================================================================== */
-
-        /* Get iframe src attribute value i.e. YouTube video url
-
-         and store it in a variable */
-
-        var url = $("#modalvideo").attr("src");
-
-        /* Remove iframe src attribute on page load to
-
-         prevent autoplay in background */
-
-        $("#modalvideo").attr("src", "");
-
-        /* Assign the initially stored url back to the iframe src
-
-         attribute when modal is displayed */
-
-        $("#tech-modal").on("shown.bs.modal", function () {
-          $("#modalvideo").attr("src", url);
-        });
-
-        /* Assign empty url value to the iframe src attribute when
-
-         modal hide, which stop the video playing */
-
-        $("#tech-modal").on("hide.bs.modal", function () {
-          $("#modalvideo").attr("src", "");
-        });
-
-        /*=========================================================================
-
-         ===  Modal Video END
-
-         ========================================================================== */
-
-        /*=========================================================================
-
-         ===  countdown
-
-         ========================================================================== */
-
-        if ($("#tech-countdown").length) {
-          var dataTime = $("#tech-countdown").data("date"); // Date Format : Y/m/d
-
-          $("#tech-countdown").countdown(dataTime, function (event) {
-            var $this = $(this).html(
-              event.strftime(
-                "" +
-                  /*+ '<span class="tech-weecks">%w <i> weeks </i></span> '*/
-
-                  '<span class="tech-days">%D <i> Days </i></span> ' +
-                  '<span class="tech-hr">%H <i> Hour </i></span> ' +
-                  '<span class="tech-min">%M <i> Minu </i></span> ' +
-                  '<span class="tech-sec">%S <i> Seco </i></span>'
-              )
-            );
-          });
-        }
-
-        /*=========================================================================
-
-         ===  countdown END
-
-         ========================================================================== */
-
-        /*=========================================================================
-
-         ===  SMOOTH SCROLL - REQUIRES JQUERY EASING PLUGIN
-
-         ========================================================================== */
-
-        $("a.tech-scroll").on("click", function (event) {
-          var $anchor = $(this);
-
-          var topTo = $($anchor.attr("href")).offset().top;
-
-          if (window.innerWidth < 768) {
-            topTo = topTo - 90;
-          }
-
-          $("html, body").stop().animate(
-            {
-              scrollTop: topTo,
-            },
-            1500,
-            "easeInOutExpo"
-          );
-
-          event.preventDefault();
-
-          return false;
-        });
-
-        /*=========================================================================
-
-         ===  SMOOTH SCROLL END
-
-         ========================================================================== */
-
-        /*=========================================================================
-
-         ===  magnific popup
-
-         ========================================================================== */
-
-        $(".tech-gallery-popup").magnificPopup({
-          delegate: "a", // child items selector, by clicking on it popup will open
-
-          type: "image",
-
-          gallery: {
-            enabled: true,
+            show: true,
           },
 
-          image: {
-            titleSrc: "title",
+          Hours: {
+            text: "Hours",
+
+            color: "#fac400",
+
+            show: true,
           },
 
-          // other options
-        });
+          Minutes: {
+            text: "Minutes",
 
-        /*=========================================================================
+            color: "#00acee",
 
-         ===  magnific popup END
+            show: true,
+          },
 
-         ========================================================================== */
+          Seconds: {
+            text: "Seconds",
 
-        if ($("#instafeed").length) {
-          var userFeed = new Instafeed({
-            get: "user",
+            color: "#483fa1",
 
-            userId: "623597756",
+            show: true,
+          },
+        },
+      });
+    }
 
-            clientId: "02b47e1b98ce4f04adc271ffbd26611d",
+    /*=========================================================================
 
-            accessToken: "623597756.02b47e1.3dbf3cb6dc3f4dccbc5b1b5ae8c74a72",
+       ===  Circular CountDown End
 
-            resolution: "standard_resolution",
+       ========================================================================== */
 
-            template:
-              '<a href="{{link}}" target="_blank" id="{{id}}"><img src="{{image}}" /></a>',
+    /*=========================================================================
 
-            sortBy: "most-recent",
+       ===  // SITE PATH
 
-            limit: 8,
+       ========================================================================== */
 
-            links: false,
-          });
+    var lgx_path = window.location.protocol + "//" + window.location.host;
 
-          userFeed.run();
-        }
+    var pathArray = window.location.pathname.split("/");
 
-        /*=========================================================================
+    for (var i = 1; i < pathArray.length - 1; i++) {
+      lgx_path += "/";
 
-         ===  HOME PAGE Slider
+      lgx_path += pathArray[i];
+    }
 
-         ========================================================================== */
+    /*=========================================================================
 
-        if ($("#tech-main-slider").length) {
-          $("#tech-main-slider").owlCarousel({
-            margin: 0,
+       ===  // SITE PATH END
 
+       ========================================================================== */
+
+    /*=========================================================================
+
+       ===  COUNTER START
+
+       ========================================================================== */
+
+    var lgxCounter = $(".tech-counter");
+
+    if (lgxCounter.length) {
+      lgxCounter.counterUp({
+        delay: 10,
+
+        time: 5000,
+      });
+    }
+
+    /*=========================================================================
+
+       ===  COUNTER END
+
+       ========================================================================== */
+
+    /*=========================================================================
+
+       ===  Modal Video
+
+       ========================================================================== */
+
+    /* Get iframe src attribute value i.e. YouTube video url
+
+       and store it in a variable */
+
+    var url = $("#modalvideo").attr("src");
+
+    /* Remove iframe src attribute on page load to
+
+       prevent autoplay in background */
+
+    $("#modalvideo").attr("src", "");
+
+    /* Assign the initially stored url back to the iframe src
+
+       attribute when modal is displayed */
+
+    $("#tech-modal").on("shown.bs.modal", function () {
+      $("#modalvideo").attr("src", url);
+    });
+
+    /* Assign empty url value to the iframe src attribute when
+
+       modal hide, which stop the video playing */
+
+    $("#tech-modal").on("hide.bs.modal", function () {
+      $("#modalvideo").attr("src", "");
+    });
+
+    /*=========================================================================
+
+       ===  Modal Video END
+
+       ========================================================================== */
+
+    /*=========================================================================
+
+       ===  countdown
+
+       ========================================================================== */
+
+    if ($("#tech-countdown").length) {
+      var dataTime = $("#tech-countdown").data("date"); // Date Format : Y/m/d
+
+      $("#tech-countdown").countdown(dataTime, function (event) {
+        var $this = $(this).html(
+          event.strftime(
+            "" +
+              /*+ '<span class="tech-weecks">%w <i> weeks </i></span> '*/
+
+              '<span class="tech-days">%D <i> Days </i></span> ' +
+              '<span class="tech-hr">%H <i> Hour </i></span> ' +
+              '<span class="tech-min">%M <i> Minu </i></span> ' +
+              '<span class="tech-sec">%S <i> Seco </i></span>'
+          )
+        );
+      });
+    }
+
+    /*=========================================================================
+
+       ===  countdown END
+
+       ========================================================================== */
+
+    /*=========================================================================
+
+       ===  SMOOTH SCROLL - REQUIRES JQUERY EASING PLUGIN
+
+       ========================================================================== */
+
+    $("a.tech-scroll").on("click", function (event) {
+      var $anchor = $(this);
+
+      var topTo = $($anchor.attr("href")).offset().top;
+
+      if (window.innerWidth < 768) {
+        topTo = topTo - 90;
+      }
+
+      $("html, body").stop().animate(
+        {
+          scrollTop: topTo,
+        },
+        1500,
+        "easeInOutExpo"
+      );
+
+      event.preventDefault();
+
+      return false;
+    });
+
+    /*=========================================================================
+
+       ===  SMOOTH SCROLL END
+
+       ========================================================================== */
+
+    /*=========================================================================
+
+       ===  magnific popup
+
+       ========================================================================== */
+
+    $(".tech-gallery-popup").magnificPopup({
+      delegate: "a", // child items selector, by clicking on it popup will open
+
+      type: "image",
+
+      gallery: {
+        enabled: true,
+      },
+
+      image: {
+        titleSrc: "title",
+      },
+
+      // other options
+    });
+
+    /*=========================================================================
+
+       ===  magnific popup END
+
+       ========================================================================== */
+
+    if ($("#instafeed").length) {
+      var userFeed = new Instafeed({
+        get: "user",
+
+        userId: "623597756",
+
+        clientId: "02b47e1b98ce4f04adc271ffbd26611d",
+
+        accessToken: "623597756.02b47e1.3dbf3cb6dc3f4dccbc5b1b5ae8c74a72",
+
+        resolution: "standard_resolution",
+
+        template:
+          '<a href="{{link}}" target="_blank" id="{{id}}"><img src="{{image}}" /></a>',
+
+        sortBy: "most-recent",
+
+        limit: 8,
+
+        links: false,
+      });
+
+      userFeed.run();
+    }
+
+    /*=========================================================================
+
+       ===  HOME PAGE Slider
+
+       ========================================================================== */
+
+    if ($("#tech-main-slider").length) {
+      $("#tech-main-slider").owlCarousel({
+        margin: 0,
+
+        items: 1,
+
+        loop: true,
+
+        animateOut: "fadeOut",
+
+        autoplay: true,
+
+        dots: false,
+
+        navText: [
+          '<i class="fa fa-angle-left"></i>',
+          '<i class="fa fa-angle-right"></i>',
+        ],
+
+        autoplayTimeout: 5000,
+
+        autoplaySpeed: 500,
+
+        nav: true,
+
+        addClassActive: true,
+      });
+    }
+
+    /*=========================================================================
+
+       ===  HOME PAGE Slider END
+
+       ========================================================================== */
+
+    /*=========================================================================
+
+       ===  gallery SLIDER
+
+       ========================================================================== */
+
+    if ($("#tech-owlgallery").length) {
+      $("#tech-owlgallery").owlCarousel({
+        margin: 0,
+
+        items: 3,
+
+        loop: true,
+
+        autoplay: true,
+
+        dots: false,
+
+        navText: [
+          "<img src='./assets/img/arrow-left.png'>",
+          "<img src='./assets/img/arrow-right.png'>",
+        ],
+
+        autoplayTimeout: 5000,
+
+        autoplaySpeed: 500,
+
+        nav: true,
+
+        addClassActive: true,
+
+        responsive: {
+          0: {
             items: 1,
+          },
 
-            loop: true,
-
-            animateOut: "fadeOut",
-
-            autoplay: true,
-
-            dots: false,
-
-            navText: [
-              '<i class="fa fa-angle-left"></i>',
-              '<i class="fa fa-angle-right"></i>',
-            ],
-
-            autoplayTimeout: 5000,
-
-            autoplaySpeed: 500,
-
-            nav: true,
-
-            addClassActive: true,
-          });
-        }
-
-        /*=========================================================================
-
-         ===  HOME PAGE Slider END
-
-         ========================================================================== */
-
-        /*=========================================================================
-
-         ===  gallery SLIDER
-
-         ========================================================================== */
-
-        if ($("#tech-owlgallery").length) {
-          $("#tech-owlgallery").owlCarousel({
-            margin: 0,
-
-            items: 3,
-
-            loop: true,
-
-            autoplay: true,
-
-            dots: false,
-
-            navText: [
-              "<img src='./assets/img/arrow-left.png'>",
-              "<img src='./assets/img/arrow-right.png'>",
-            ],
-
-            autoplayTimeout: 5000,
-
-            autoplaySpeed: 500,
-
-            nav: true,
-
-            addClassActive: true,
-
-            responsive: {
-              0: {
-                items: 1,
-              },
-
-              480: {
-                items: 2,
-              },
-
-              992: {
-                items: 3,
-              },
-            },
-          });
-        }
-
-        /*=========================================================================
-
-         ===  gallery SLIDER END
-
-         ========================================================================== */
-
-        /*=========================================================================
-
-         ===  HOME PAGE Slider
-
-         ========================================================================== */
-
-        if ($("#tech-slider-center").length) {
-          $("#tech-slider-center").owlCarousel({
-            margin: 0,
-
-            center: true,
-
-            items: 1,
-
-            loop: true,
-
-            //animateOut: 'fadeOut',
-
-            autoplay: true,
-
-            dots: false,
-
-            navText: [
-              '<i class="fa fa-angle-left"></i>',
-              '<i class="fa fa-angle-right"></i>',
-            ],
-
-            autoplayTimeout: 5000,
-
-            autoplaySpeed: 500,
-
-            nav: true,
-
-            addClassActive: true,
-
-            responsive: {
-              991: {
-                items: 2,
-              },
-            },
-          });
-        }
-
-        /*=========================================================================
-
-         ===  HOME PAGE Slider END
-
-         ========================================================================== */
-
-        /*=========================================================================
-
-         ===  TESTIMONIAL SLIDER
-
-         ========================================================================== */
-
-        if ($("#tech-owltestimonial").length) {
-          $("#tech-owltestimonial").owlCarousel({
-            margin: 0,
-
+          480: {
             items: 2,
+          },
 
-            loop: true,
+          992: {
+            items: 3,
+          },
+        },
+      });
+    }
 
-            autoplay: true,
+    /*=========================================================================
 
-            dots: true,
+       ===  gallery SLIDER END
 
-            navText: [
-              "<img src='./assets/img/arrow-left-ash.png'>",
-              "<img src='./assets/img/arrow-right-ash.png'>",
-            ],
+       ========================================================================== */
 
-            autoplayTimeout: 5000,
+    /*=========================================================================
 
-            autoplaySpeed: 500,
+       ===  HOME PAGE Slider
 
-            nav: true,
+       ========================================================================== */
 
-            addClassActive: true,
+    if ($("#tech-slider-center").length) {
+      $("#tech-slider-center").owlCarousel({
+        margin: 0,
 
-            responsive: {
-              0: {
-                items: 1,
-              },
+        center: true,
 
-              787: {
-                items: 1,
-              },
-            },
-          });
-        }
+        items: 1,
 
-        /*=========================================================================
+        loop: true,
 
-         ===  TESTIMONIAL SLIDER END
+        //animateOut: 'fadeOut',
 
-         ========================================================================== */
+        autoplay: true,
 
-        // HEADER DISPLAY FLEX ISSUE
+        dots: false,
 
-        if ($(window).width() < 787) {
-          $("#navbar").removeClass("tech-collapse");
-        }
+        navText: [
+          '<i class="fa fa-angle-left"></i>',
+          '<i class="fa fa-angle-right"></i>',
+        ],
 
-        /*=========================================================================
+        autoplayTimeout: 5000,
 
-         ===  Typed Animation START
+        autoplaySpeed: 500,
 
-         ========================================================================== */
+        nav: true,
 
-        if ($("#tech-typed-string").length) {
-          $("#tech-typed-string").typed({
-            strings: [
-              "UX Conference 2021",
-              "UI Conference 2021",
-              "You learn Advance",
-            ],
+        addClassActive: true,
 
-            // typing speed
+        responsive: {
+          991: {
+            items: 2,
+          },
+        },
+      });
+    }
 
-            typeSpeed: 10,
+    /*=========================================================================
 
-            // time before typing starts
+       ===  HOME PAGE Slider END
 
-            startDelay: 0,
+       ========================================================================== */
 
-            // backspacing speed
+    /*=========================================================================
 
-            backSpeed: 0,
+       ===  TESTIMONIAL SLIDER
 
-            // shuffle the strings
+       ========================================================================== */
 
-            shuffle: false,
+    if ($("#tech-owltestimonial").length) {
+      $("#tech-owltestimonial").owlCarousel({
+        margin: 0,
 
-            // time before backspacing
+        items: 2,
 
-            backDelay: 500,
+        loop: true,
 
-            // loop
+        autoplay: true,
 
-            loop: true,
+        dots: true,
 
-            // false = infinite
+        navText: [
+          "<img src='./assets/img/arrow-left-ash.png'>",
+          "<img src='./assets/img/arrow-right-ash.png'>",
+        ],
 
-            loopCount: false,
+        autoplayTimeout: 5000,
 
-            // show cursor
+        autoplaySpeed: 500,
 
-            showCursor: true,
+        nav: true,
 
-            // character for cursor
+        addClassActive: true,
 
-            cursorChar: "|",
+        responsive: {
+          0: {
+            items: 1,
+          },
 
-            // either html or text
+          787: {
+            items: 1,
+          },
+        },
+      });
+    }
 
-            contentType: "html",
-          });
-        }
+    /*=========================================================================
 
-        /*=========================================================================
+       ===  TESTIMONIAL SLIDER END
 
-         ===  Typed Animation END
+       ========================================================================== */
 
-         ========================================================================== */
+    // HEADER DISPLAY FLEX ISSUE
 
-        /*=========================================================================
+    if ($(window).width() < 787) {
+      $("#navbar").removeClass("tech-collapse");
+    }
 
-         ===  Typed Animation START
+    /*=========================================================================
 
-         ========================================================================== */
+       ===  Typed Animation START
 
-        if ($("#tech-typed-center").length) {
-          $("#tech-typed-center").typed({
-            strings: ["Festival", "World", "Event"],
+       ========================================================================== */
 
-            // typing speed
+    if ($("#tech-typed-string").length) {
+      $("#tech-typed-string").typed({
+        strings: [
+          "UX Conference 2021",
+          "UI Conference 2021",
+          "You learn Advance",
+        ],
 
-            typeSpeed: 100,
+        // typing speed
 
-            // time before typing starts
+        typeSpeed: 10,
 
-            startDelay: 0,
+        // time before typing starts
 
-            // backspacing speed
+        startDelay: 0,
 
-            backSpeed: 0,
+        // backspacing speed
 
-            // shuffle the strings
+        backSpeed: 0,
 
-            shuffle: false,
+        // shuffle the strings
 
-            // time before backspacing
+        shuffle: false,
 
-            backDelay: 500,
+        // time before backspacing
 
-            // loop
+        backDelay: 500,
 
-            loop: true,
+        // loop
 
-            // false = infinite
+        loop: true,
 
-            loopCount: false,
+        // false = infinite
 
-            // show cursor
+        loopCount: false,
 
-            showCursor: true,
+        // show cursor
 
-            // character for cursor
+        showCursor: true,
 
-            cursorChar: "|",
+        // character for cursor
 
-            // either html or text
+        cursorChar: "|",
 
-            contentType: "html",
-          });
-        }
+        // either html or text
 
-        /*=========================================================================
+        contentType: "html",
+      });
+    }
 
-         ===  Typed Animation END
+    /*=========================================================================
 
-         ========================================================================== */
+       ===  Typed Animation END
 
-        /*=========================================================================
+       ========================================================================== */
 
-         ===  GOOGLE MAP
+    /*=========================================================================
 
-         ========================================================================== */
+       ===  Typed Animation START
 
-        if (typeof google != "undefined") {
-          //for Default  map
+       ========================================================================== */
 
-          if ($(".map-canvas-default").length) {
-            $(".map-canvas-default").googleMap({
-              zoom: 8, // Initial zoom level (optiona
+    if ($("#tech-typed-center").length) {
+      $("#tech-typed-center").typed({
+        strings: ["Festival", "World", "Event"],
 
-              coords: [40.7127, 74.0059], // Map center (optional)
+        // typing speed
 
-              type: "ROADMAP", // Map type (optional),
+        typeSpeed: 100,
 
-              mouseZoom: false,
-            });
+        // time before typing starts
 
-            //for marker
+        startDelay: 0,
 
-            $(".map-canvas-default").addMarker({
-              coords: [40.7127, 74.0059], // GPS coords
+        // backspacing speed
 
-              title: "Eventpoint",
+        backSpeed: 0,
 
-              text: "121 King St, Melbourne VIC 3000, Australia",
+        // shuffle the strings
 
-              icon: lgx_path + "/assets/img/map/map-icon.png",
-            });
-          }
+        shuffle: false,
 
-          // FOR DARK MAP
+        // time before backspacing
 
-          if ($(".map-canvas-dark").length) {
-            $(".map-canvas-dark").googleMap({
-              zoom: 8, // Initial zoom level (optiona
+        backDelay: 500,
 
-              coords: [40.7127, 74.0059], // Map center (optional)
+        // loop
 
-              type: "HYBRID", // Map type (optional),
+        loop: true,
 
-              mouseZoom: false,
-            });
+        // false = infinite
 
-            //for marker
+        loopCount: false,
 
-            $(".map-canvas-dark").addMarker({
-              coords: [40.7127, 74.0059], // GPS coords
+        // show cursor
 
-              title: "Eventpoint",
+        showCursor: true,
 
-              text: "121 King St, Melbourne VIC 3000, Australia",
+        // character for cursor
 
-              icon: lgx_path + "/assets/img/map/map-icon.png",
-            });
-          }
-        }
+        cursorChar: "|",
 
-        /*=========================================================================
+        // either html or text
 
-         ===  //GOOGLE MAP END
+        contentType: "html",
+      });
+    }
 
-         ========================================================================== */
+    /*=========================================================================
 
-        /* ==========================================================================
+       ===  Typed Animation END
 
-         SUBSCRIPTION & AJAX SUBMISSION
+       ========================================================================== */
 
-         ========================================================================== */
+    /*=========================================================================
 
-        var isEmail = function (email) {
-          var regex =
-            /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+       ===  GOOGLE MAP
 
-          return regex.test(email);
-        };
+       ========================================================================== */
 
-        $("form.tech-subscribe-form").on("submit", function (evnt) {
-          evnt.preventDefault();
+    if (typeof google != "undefined") {
+      //for Default  map
 
-          //  console.log(lgx_path);
+      if ($(".map-canvas-default").length) {
+        $(".map-canvas-default").googleMap({
+          zoom: 8, // Initial zoom level (optiona
 
-          // console.log('subs submit');
+          coords: [40.7127, 74.0059], // Map center (optional)
 
-          var $subform = $(this);
+          type: "ROADMAP", // Map type (optional),
 
-          var emailInput = $("form.tech-subscribe-form").find(
-            "input#subscribe"
-          );
-
-          if (isEmail(emailInput.val())) {
-            // console.log('ok');
-
-            $.ajax({
-              url: lgx_path + "/assets/php/subscribe.php",
-
-              type: "post",
-
-              data: { email: emailInput.val().toLowerCase() },
-
-              beforeSubmit: function (argument) {
-                // body...
-              },
-
-              success: function (ajaxResponse) {
-                var ajaxResponse = $.parseJSON(ajaxResponse);
-
-                // console.log(ajaxResponse);
-
-                $("#tech-subalert")
-                  .addClass("alert alert-success tech-sub-alert")
-                  .html(ajaxResponse.message);
-
-                try {
-                  var ajaxResponse = $.parseJSON(ajaxResponse);
-
-                  if (!ajaxResponse.error) {
-                    emailInput.css("color", "#0f0");
-                  } else {
-                    emailInput.removeAttr("style"); //css('color', '#f00');
-
-                    throw ajaxResponse.message;
-                  }
-
-                  //alert( ajaxResponse.message );
-                } catch (e) {
-                  // e.message;
-                  // alert(e.message );
-                }
-              },
-
-              error: function (argument) {
-                var ajaxResponse = $.parseJSON(ajaxResponse);
-
-                $("#tech-subalert")
-                  .addClass("alert alert-danger tech-sub-alert")
-                  .html(ajaxResponse.message);
-
-                // body...
-              },
-            });
-
-            $subform[0].reset();
-          } else {
-            emailInput.css("color", "#f00");
-
-            return false;
-          }
+          mouseZoom: false,
         });
 
-        $("form.subscribe-form input#subscribe").on("keyup", function (evnt) {
-          var regex =
-            /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        //for marker
 
-          this.style.color = isEmail($(this).val()) ? "#f5832b" : "#f00";
+        $(".map-canvas-default").addMarker({
+          coords: [40.7127, 74.0059], // GPS coords
+
+          title: "Eventpoint",
+
+          text: "121 King St, Melbourne VIC 3000, Australia",
+
+          icon: lgx_path + "/assets/img/map/map-icon.png",
+        });
+      }
+
+      // FOR DARK MAP
+
+      if ($(".map-canvas-dark").length) {
+        $(".map-canvas-dark").googleMap({
+          zoom: 8, // Initial zoom level (optiona
+
+          coords: [40.7127, 74.0059], // Map center (optional)
+
+          type: "HYBRID", // Map type (optional),
+
+          mouseZoom: false,
         });
 
-        /* ==========================================================================
+        //for marker
 
-         SUBSCRIPTION & AJAX SUBMISSION
+        $(".map-canvas-dark").addMarker({
+          coords: [40.7127, 74.0059], // GPS coords
 
-         ========================================================================== */
+          title: "Eventpoint",
 
-        /*=========================================================================
+          text: "121 King St, Melbourne VIC 3000, Australia",
 
-         ===  Start Contact Form Validation And Ajax Submission
+          icon: lgx_path + "/assets/img/map/map-icon.png",
+        });
+      }
+    }
 
-         ========================================================================== */
+    /*=========================================================================
 
-        var alertInterval; //store the timeout interval ID
+       ===  //GOOGLE MAP END
 
-        //clear interval for alert message window
+       ========================================================================== */
 
-        $("#tech-form-modal").on("hide.bs.modal", function (ev) {
-          clearInterval(alertInterval);
+    /* ==========================================================================
+
+       SUBSCRIPTION & AJAX SUBMISSION
+
+       ========================================================================== */
+
+    var isEmail = function (email) {
+      var regex =
+        /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+      return regex.test(email);
+    };
+
+    $("form.tech-subscribe-form").on("submit", function (evnt) {
+      evnt.preventDefault();
+
+      //  console.log(lgx_path);
+
+      // console.log('subs submit');
+
+      var $subform = $(this);
+
+      var emailInput = $("form.tech-subscribe-form").find("input#subscribe");
+
+      if (isEmail(emailInput.val())) {
+        // console.log('ok');
+
+        $.ajax({
+          url: lgx_path + "/assets/php/subscribe.php",
+
+          type: "post",
+
+          data: { email: emailInput.val().toLowerCase() },
+
+          beforeSubmit: function (argument) {
+            // body...
+          },
+
+          success: function (ajaxResponse) {
+            var ajaxResponse = $.parseJSON(ajaxResponse);
+
+            // console.log(ajaxResponse);
+
+            $("#tech-subalert")
+              .addClass("alert alert-success tech-sub-alert")
+              .html(ajaxResponse.message);
+
+            try {
+              var ajaxResponse = $.parseJSON(ajaxResponse);
+
+              if (!ajaxResponse.error) {
+                emailInput.css("color", "#0f0");
+              } else {
+                emailInput.removeAttr("style"); //css('color', '#f00');
+
+                throw ajaxResponse.message;
+              }
+
+              //alert( ajaxResponse.message );
+            } catch (e) {
+              // e.message;
+              // alert(e.message );
+            }
+          },
+
+          error: function (argument) {
+            var ajaxResponse = $.parseJSON(ajaxResponse);
+
+            $("#tech-subalert")
+              .addClass("alert alert-danger tech-sub-alert")
+              .html(ajaxResponse.message);
+
+            // body...
+          },
         });
 
-        var $contactForm = $("form.tech-contactform");
+        $subform[0].reset();
+      } else {
+        emailInput.css("color", "#f00");
 
-        $contactForm.validate({
-          submitHandler: function (form) {
-            //console.log(form);
+        return false;
+      }
+    });
 
-            var $form = $(form);
+    $("form.subscribe-form input#subscribe").on("keyup", function (evnt) {
+      var regex =
+        /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
-            //console.log($form.serialize());
+      this.style.color = isEmail($(this).val()) ? "#f5832b" : "#f00";
+    });
 
-            $.ajax({
-              url: lgx_path + "/assets/php/contact.php",
+    /* ==========================================================================
 
-              type: "post",
+       SUBSCRIPTION & AJAX SUBMISSION
 
-              data: $form.serialize(),
+       ========================================================================== */
 
-              beforeSubmit: function (argument) {
-                //ajax loading icon
-              },
+    /*=========================================================================
 
-              success: function (ajaxResponse) {
-                try {
-                  var ajaxResponse = $.parseJSON(ajaxResponse);
+       ===  Start Contact Form Validation And Ajax Submission
 
-                  if (ajaxResponse.error) {
-                    //for field error
+       ========================================================================== */
 
-                    //console.log(ajaxResponse.error_field);
+    var alertInterval; //store the timeout interval ID
 
-                    for (var i = 0; i < ajaxResponse.error_field.length; i++) {
-                      if (
-                        $("p#" + ajaxResponse.error_field[i] + "-error").length
-                      ) {
-                        $("p#" + ajaxResponse.error_field[i] + "-error").text(
-                          ajaxResponse.message[ajaxResponse.error_field[i]]
-                        );
-                      } else {
-                        $("#" + ajaxResponse.error_field[i]).after(
-                          '<p id="' +
-                            ajaxResponse.error_field[i] +
-                            '-error" class="help-block">' +
-                            ajaxResponse.message[ajaxResponse.error_field[i]] +
-                            "</p>"
-                        );
-                      }
-                    }
-                  } else {
-                    $(".tech-form-msg")
-                      .removeClass("alert-danger")
-                      .addClass("alert-success")
-                      .text(ajaxResponse.message);
+    //clear interval for alert message window
 
-                    $("#tech-form-modal").modal("show");
+    $("#tech-form-modal").on("hide.bs.modal", function (ev) {
+      clearInterval(alertInterval);
+    });
 
-                    alertInterval = setInterval(function () {
-                      $("#tech-form-modal").modal("hide");
-                    }, 5000);
+    var $contactForm = $("form.tech-contactform");
 
-                    $form[0].reset();
-                  }
-                } catch (e) {
-                  $(".tech-form-msg")
-                    .removeClass("alert-success")
-                    .addClass("alert-danger")
-                    .text(
-                      "Sorry, we are failed to contact with you. Please reload the page and try again."
+    $contactForm.validate({
+      submitHandler: function (form) {
+        //console.log(form);
+
+        var $form = $(form);
+
+        //console.log($form.serialize());
+
+        $.ajax({
+          url: lgx_path + "/assets/php/contact.php",
+
+          type: "post",
+
+          data: $form.serialize(),
+
+          beforeSubmit: function (argument) {
+            //ajax loading icon
+          },
+
+          success: function (ajaxResponse) {
+            try {
+              var ajaxResponse = $.parseJSON(ajaxResponse);
+
+              if (ajaxResponse.error) {
+                //for field error
+
+                //console.log(ajaxResponse.error_field);
+
+                for (var i = 0; i < ajaxResponse.error_field.length; i++) {
+                  if ($("p#" + ajaxResponse.error_field[i] + "-error").length) {
+                    $("p#" + ajaxResponse.error_field[i] + "-error").text(
+                      ajaxResponse.message[ajaxResponse.error_field[i]]
                     );
-
-                  $("#tech-form-modal").modal("show");
-
-                  alertInterval = setInterval(function () {
-                    $("#tech-form-modal").modal("hide");
-                  }, 5000);
+                  } else {
+                    $("#" + ajaxResponse.error_field[i]).after(
+                      '<p id="' +
+                        ajaxResponse.error_field[i] +
+                        '-error" class="help-block">' +
+                        ajaxResponse.message[ajaxResponse.error_field[i]] +
+                        "</p>"
+                    );
+                  }
                 }
-              },
-
-              error: function (argument) {
+              } else {
                 $(".tech-form-msg")
-                  .removeClass("alert-success")
-                  .addClass("alert-danger")
-                  .text(
-                    "Sorry, we can not communicate with you. Please make sure you are connected with internet."
-                  );
+                  .removeClass("alert-danger")
+                  .addClass("alert-success")
+                  .text(ajaxResponse.message);
 
                 $("#tech-form-modal").modal("show");
 
                 alertInterval = setInterval(function () {
                   $("#tech-form-modal").modal("hide");
                 }, 5000);
-              },
 
-              complete: function () {},
-            });
+                $form[0].reset();
+              }
+            } catch (e) {
+              $(".tech-form-msg")
+                .removeClass("alert-success")
+                .addClass("alert-danger")
+                .text(
+                  "Sorry, we are failed to contact with you. Please reload the page and try again."
+                );
 
-            return false;
+              $("#tech-form-modal").modal("show");
+
+              alertInterval = setInterval(function () {
+                $("#tech-form-modal").modal("hide");
+              }, 5000);
+            }
           },
 
-          errorElement: "p",
+          error: function (argument) {
+            $(".tech-form-msg")
+              .removeClass("alert-success")
+              .addClass("alert-danger")
+              .text(
+                "Sorry, we can not communicate with you. Please make sure you are connected with internet."
+              );
 
-          errorClass: "help-block",
+            $("#tech-form-modal").modal("show");
 
-          rules: {
-            lgxname: {
-              required: true,
-
-              minlength: 3,
-            },
-
-            lgxemail: {
-              required: true,
-
-              email: true,
-            },
-
-            lgxsubject: {
-              required: true,
-
-              minlength: 5,
-            },
-
-            lgxmessage: {
-              required: true,
-
-              minlength: 5,
-            },
+            alertInterval = setInterval(function () {
+              $("#tech-form-modal").modal("hide");
+            }, 5000);
           },
+
+          complete: function () {},
         });
 
-        /*=========================================================================
+        return false;
+      },
 
-         ===  Start Contact Form Validation And Ajax Submission END
+      errorElement: "p",
 
-         ========================================================================== */
-      }); //DOM READY
-    }
-  )(jQuery);
+      errorClass: "help-block",
+
+      rules: {
+        lgxname: {
+          required: true,
+
+          minlength: 3,
+        },
+
+        lgxemail: {
+          required: true,
+
+          email: true,
+        },
+
+        lgxsubject: {
+          required: true,
+
+          minlength: 5,
+        },
+
+        lgxmessage: {
+          required: true,
+
+          minlength: 5,
+        },
+      },
+    });
+
+    /*=========================================================================
+
+       ===  Start Contact Form Validation And Ajax Submission END
+
+       ========================================================================== */
+  }); //DOM READY
+})(jQuery);
